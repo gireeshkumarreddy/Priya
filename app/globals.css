@@ -85,7 +85,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset
 .related-products{padding:20px 5% 90px;scroll-margin-top:30px}
 .section-heading{text-align:center}
 .section-heading h2{font-family:Didot,'Bodoni MT','Times New Roman',serif;color:var(--orange);font-size:clamp(40px,5.2vw,82px);font-weight:400;letter-spacing:-.055em;margin:8px 0 44px;line-height:1}
-.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
 .related-product{text-align:left;min-width:0;padding:0}
 .related-photo{height:330px;background:#f1e6d7;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .related-image{width:260px;height:260px;flex-shrink:0;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
@@ -170,7 +169,6 @@ to{opacity:.55;translate:0 0}
 .gallery-controls>div{gap:8px}
 .related-products{padding:0 5% 60px}
 .section-heading h2{font-size:12vw;margin-bottom:28px}
-.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 11px}
 .related-photo{height:235px}
 .related-image{width:210px;height:210px}
 .related-name{font-size:14px;margin-top:11px}
@@ -238,3 +236,179 @@ to{opacity:.55;translate:0 0}
 .product-turn canvas{image-rendering:auto}
 .flying-product img{animation:none;backface-visibility:hidden}
 @media(prefers-reduced-motion:reduce){.carousel-mound g{will-change:auto}}
+
+/* Product packs in the editorial gallery sit on a warm panel instead of filling the frame. */
+.gallery-image.is-product{display:flex;align-items:center;justify-content:center;background:#f1e6d7}
+.gallery-image.is-product img{object-fit:contain;padding:6%}
+
+/* ---------- Buttons ---------- */
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:44px;padding:0 22px;border-radius:999px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;transition:background .25s,color .25s,border-color .25s,transform .3s cubic-bezier(.3,1.4,.5,1),box-shadow .3s}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(0) scale(.98)}
+.cta-solid{background:var(--red);color:var(--cream)}
+.cta-solid:hover{background:#8f1b29;box-shadow:0 12px 26px -12px #af2433b0}
+.cta-outline{border:1px solid #c9b3a0;color:var(--ink)}
+.cta-outline:hover{border-color:var(--red);color:var(--red)}
+.cta-cream{background:var(--cream);color:var(--red)}
+.cta-cream:hover{background:#fff;box-shadow:0 12px 26px -14px #3c292380}
+.cta-ghost{border:1px solid #f9f4ef8c;color:var(--cream)}
+.cta-ghost:hover{background:#f9f4ef1f;border-color:var(--cream)}
+.cta-small{height:34px;padding:0 16px;font-size:10px}
+.header-actions{display:flex;align-items:center;gap:12px;margin-left:auto}
+.header-actions .menu-trigger{margin-left:0}
+.header-shop{height:31px}
+.hero-ctas{display:flex;gap:10px;margin-top:12px}
+.explore-prompt .cta{font-size:11px;letter-spacing:.08em;border-bottom:0;padding-bottom:0;gap:9px}
+.detail-ctas{position:absolute;left:50%;top:calc(77vh - 62px);transform:translateX(-50%);display:flex;gap:12px;z-index:6;opacity:clamp(0,calc(1 - var(--arrival,0) * 3),1);animation:fade-up 1s .55s both}
+.spin-scene[data-intro=off] .detail-ctas{visibility:hidden}
+.story-ctas,.collection-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.story-ctas{margin-top:8px}
+.collection-ctas{margin-top:46px}
+
+/* ---------- Hero: a wavy red disc instead of the mound ---------- */
+.carousel-mound{top:61%;bottom:auto;width:min(94svh,150vw);height:auto;aspect-ratio:1;transform:translate(-50%,-50%)}
+.carousel-mound text{font-size:58px;letter-spacing:1px}
+.is-leaving .carousel-mound{opacity:0;transform:translate(-50%,-30%) scale(.92)}
+.carousel-arrow{background:var(--cream);color:var(--red);border-color:transparent;box-shadow:0 6px 18px -10px #3c292366}
+
+/* ---------- Opening sequence ---------- */
+.intro{position:fixed;inset:0;z-index:80}
+.intro-curtain{position:absolute;inset:0;background:var(--cream);overflow:hidden;will-change:transform}
+.intro-disc{position:absolute;left:50%;top:50%;width:min(80vh,94vw);height:min(80vh,94vw);fill:var(--red);overflow:visible;transform:translate(-50%,-50%) scale(0)}
+.intro-jar{position:absolute;left:50%;top:50%;width:62vh;height:62vh;max-width:120vw;max-height:120vw;transform:translate(-50%,-50%);opacity:0}
+.intro-tagline{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.24em;color:#8e7e72;white-space:nowrap;animation:fade-up .8s .5s both}
+.intro-logo{position:absolute;left:50%;top:50%;width:min(300px,62vw);height:auto;transform:translate(-50%,-50%);opacity:0;z-index:2;will-change:transform;pointer-events:none}
+.intro-skip{position:absolute;right:28px;bottom:28px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid #bba48f;padding-bottom:3px;z-index:3}
+.intro-active .site-header .brand{opacity:0}
+.hero-enter .carousel-mound svg{animation:disc-in 1.3s cubic-bezier(.2,.85,.25,1) both}
+.hero-enter .orbit{animation:orbit-in 1.4s .1s cubic-bezier(.16,1,.3,1) both}
+.hero-enter .carousel-bottom,.hero-enter .carousel-index{animation:fade-up .9s .45s both}
+@keyframes disc-in{from{transform:scale(.55) rotate(-25deg)}}
+@keyframes orbit-in{from{opacity:0;transform:translateY(24vh)}}
+@keyframes fade-up{from{opacity:0;translate:0 16px}}
+
+/* ---------- Floating ingredients around the turning jar ---------- */
+.ingredient-field{position:absolute;inset:0;z-index:2;pointer-events:none;--px:0;--py:0}
+.ingredient-orbit{position:absolute;inset:0;transform:rotate(calc(var(--spin,0) * 32deg))}
+.ingredient-particle{--sz:var(--size);--spread:calc(.2 + .8 * var(--arrival,0));position:absolute;left:50%;top:50%;width:var(--sz);height:var(--sz);margin:calc(var(--sz) / -2) 0 0 calc(var(--sz) / -2);pointer-events:auto;
+ transform:translate(calc(var(--x) * var(--spread) + var(--px) * var(--depth) * 36px),calc(var(--y) * var(--spread) + var(--py) * var(--depth) * 36px)) rotate(var(--r));
+ opacity:clamp(0,calc(var(--arrival,0) * 1.8 - .25),1)}
+.ingredient-particle.is-far{filter:blur(1.4px) saturate(.85)}
+.ingredient-particle.is-near{filter:blur(.8px)}
+.particle-float{display:block;width:100%;height:100%;animation:bob var(--dur) ease-in-out var(--delay) infinite alternate;transition:opacity .4s}
+.ingredient-particle svg{display:block;width:100%;height:100%;overflow:visible;transition:transform .6s cubic-bezier(.3,1.6,.5,1)}
+.ingredient-particle:not(.kind-chilli-flake):not(.kind-mustard) svg{filter:drop-shadow(0 8px 9px #46231424)}
+.ingredient-particle:hover svg{transform:scale(1.3) rotate(28deg)}
+.kind-gongura-leaf .particle-float,.kind-curry-leaf .particle-float{animation-name:sway}
+.kind-chilli-flake .particle-float,.kind-mustard .particle-float{animation-name:drift}
+.ingredient-field.has-focus .ingredient-particle:not(.is-focus) .particle-float{opacity:.13}
+.ingredient-particle.is-focus{z-index:2}
+.ingredient-particle.is-focus svg{transform:scale(1.35)}
+@keyframes bob{from{transform:translate(-4px,6px) rotate(-7deg)}to{transform:translate(5px,-12px) rotate(8deg)}}
+@keyframes sway{from{transform:translate(-8px,6px) rotate(-16deg)}to{transform:translate(9px,-14px) rotate(15deg)}}
+@keyframes drift{from{transform:translate(-6px,-16px) rotate(-40deg)}to{transform:translate(8px,18px) rotate(70deg)}}
+
+/* ---------- Ingredient panels ---------- */
+.ingredient-panel{position:absolute;top:50%;width:min(310px,25vw);z-index:5;padding:24px 22px;background:#f9f4efd6;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #c9b3a066;border-radius:22px;box-shadow:0 30px 60px -40px #3c292366;opacity:0;visibility:hidden;transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1),visibility 0s linear .6s}
+.panel-left{left:4.5%;transform:translate(-40px,-50%)}
+.panel-right{right:4.5%;transform:translate(40px,-50%)}
+.spin-scene[data-panels=on] .ingredient-panel{opacity:1;visibility:visible;transform:translate(0,-50%);transition-delay:0s}
+.spin-scene[data-panels=on] .panel-right{transition-delay:.12s,.12s,0s}
+.panel-title{font-family:'Bodoni Moda',Didot,serif;font-weight:400;color:var(--orange);font-size:clamp(26px,2.3vw,36px);letter-spacing:-.04em;line-height:1;margin:8px 0 16px}
+.ingredient-list,.highlight-list{list-style:none;margin:0;padding:0}
+.ingredient-list li{border-top:1px solid #e3d6c8}
+.spin-scene[data-panels=on] .ingredient-list li,.spin-scene[data-panels=on] .highlight-list li{animation:panel-item .7s calc(.18s + var(--i) * .08s) both}
+@keyframes panel-item{from{opacity:0;translate:-14px 0}}
+.ingredient-row{display:flex;align-items:center;gap:12px;width:100%;padding:10px 0;text-align:left}
+.ingredient-icon{width:30px;height:30px;flex-shrink:0;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.ingredient-row:hover .ingredient-icon,.is-open .ingredient-icon{transform:rotate(-14deg) scale(1.2)}
+.ingredient-name{font-family:Georgia,serif;font-size:16px;flex:1;transition:color .2s}
+.ingredient-row:hover .ingredient-name{color:var(--red)}
+.ingredient-share{font-size:10px;letter-spacing:.05em;background:var(--red);color:var(--cream);border-radius:20px;padding:3px 8px}
+.ingredient-toggle{width:11px;height:11px;position:relative;flex-shrink:0}
+.ingredient-toggle::before,.ingredient-toggle::after{content:"";position:absolute;left:0;top:5px;width:11px;height:1px;background:currentColor;transition:transform .35s}
+.ingredient-toggle::after{transform:rotate(90deg)}
+.is-open .ingredient-toggle::after{transform:rotate(0)}
+.ingredient-detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1)}
+.is-open .ingredient-detail{grid-template-rows:1fr}
+.ingredient-detail p{min-height:0;overflow:hidden;margin:0;padding-left:42px;font-size:13px;line-height:1.5;color:#7d6a5e}
+.is-open .ingredient-detail p{padding-bottom:12px}
+.highlight-list{display:grid;gap:10px;margin-bottom:16px}
+.highlight-list li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.35}
+.tick{width:20px;height:20px;border-radius:50%;background:var(--red);color:var(--cream);display:grid;place-items:center;flex-shrink:0}
+.heat-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e3d6c8;padding:10px 0;font-size:10px;letter-spacing:.14em;color:#8e7e72}
+.heat-meter{display:flex;gap:2px}
+.heat-meter svg{width:24px;height:24px;opacity:.16;filter:grayscale(1)}
+.heat-meter svg.is-on{opacity:1;filter:none}
+.spin-scene[data-panels=on] .heat-meter svg.is-on{animation:heat-pop .5s cubic-bezier(.3,1.8,.5,1) both}
+.heat-meter svg:nth-child(1){animation-delay:.4s!important}
+.heat-meter svg:nth-child(2){animation-delay:.48s!important}
+.heat-meter svg:nth-child(3){animation-delay:.56s!important}
+.heat-meter svg:nth-child(4){animation-delay:.64s!important}
+.heat-meter svg:nth-child(5){animation-delay:.72s!important}
+@keyframes heat-pop{from{transform:scale(0) rotate(-40deg)}}
+.spec-list{margin:0 0 16px}
+.spec-list div{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #e3d6c8;padding:8px 0;font-size:12px}
+.spec-list dt{color:#8e7e72;white-space:nowrap}
+.spec-list dd{margin:0;text-align:right}
+.panel-right .cta{width:100%}
+
+/* ---------- Our flavours: the full range drifting right to left ---------- */
+.flavour-marquee{margin:0 calc(50% - 50vw);overflow:clip;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.flavour-marquee:active{cursor:grabbing}
+.flavour-track{position:relative;display:flex;width:max-content;will-change:transform}
+.flavour-track .related-product{flex:0 0 clamp(230px,22vw,420px);margin-right:13px}
+.related-current{position:absolute;top:11px;right:12px;font-size:8px;letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:var(--cream);border-radius:20px;padding:4px 9px}
+.related-product.is-current .related-photo{box-shadow:inset 0 0 0 1px #af243359}
+.flavour-controls{display:flex;justify-content:space-between;align-items:center;margin-top:22px;font-size:8px;letter-spacing:.1em;color:#8e7e72}
+.flavour-controls button{width:30px;height:30px;border-radius:50%;border:1px solid #c9b3a0;display:grid;place-items:center;color:var(--red);transition:border-color .2s}
+.flavour-controls button:hover{border-color:var(--red)}
+
+/* ---------- Closing call to action ---------- */
+.cta-band{margin:0 5% 90px;padding:clamp(48px,7vw,96px) 6%;border-radius:36px;background:var(--orange);color:var(--cream);text-align:center}
+.cta-band h2{font-family:'Bodoni Moda',Didot,serif;font-weight:400;font-size:clamp(40px,6vw,92px);letter-spacing:-.05em;line-height:.95;margin:14px 0 22px}
+.cta-band p{max-width:520px;margin:0 auto 30px;font-size:15px;line-height:1.6;opacity:.92}
+.cta-band-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+
+@media(min-width:701px) and (max-width:1100px){
+ .ingredient-panel{width:27vw;padding:18px 16px}
+ .panel-left{left:2.5%}
+ .panel-right{right:2.5%}
+ .ingredient-name{font-size:14px}
+ .highlight-list li{font-size:13px}
+ .ingredient-detail p{padding-left:0}
+}
+@media(max-width:700px){
+ .header-shop{display:none}
+ .carousel-mound{width:205vw;top:65%}
+ .carousel-bottom{padding-bottom:50px}
+ .hero-ctas{position:absolute;left:0;right:0;bottom:0;justify-content:center;gap:8px;margin:0}
+ .explore-prompt .cta{height:38px;padding:0 16px;font-size:10px}
+ .carousel-index{bottom:165px}
+ .intro-jar{width:min(108vw,62vh);height:min(108vw,62vh)}
+ .detail-ctas{top:54svh;gap:8px}
+ .detail-ctas .cta{height:38px;padding:0 15px;font-size:10px}
+ .ingredient-particle{--sz:calc(var(--size) * .62)}
+ .ingredient-particle.desktop-only{display:none}
+ .ingredient-panel{left:12px;right:12px;width:auto;padding:12px 14px;border-radius:18px}
+ .panel-left{left:12px;top:88px;transform:translateY(-20px)}
+ .panel-right{right:12px;top:auto;bottom:14px;transform:translateY(20px)}
+ .spin-scene[data-panels=on] .ingredient-panel{transform:none}
+ .panel-left .eyebrow,.panel-right .eyebrow,.panel-title,.heat-row,.spec-list,.ingredient-detail,.ingredient-toggle{display:none}
+ .ingredient-list{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+ .ingredient-list li{border:0;flex-shrink:0}
+ .ingredient-row{padding:4px 10px 4px 4px;border:1px solid #e3d6c8;border-radius:30px;gap:6px}
+ .ingredient-icon{width:22px;height:22px}
+ .ingredient-name{font-size:12px}
+ .highlight-list{gap:6px;margin-bottom:10px}
+ .highlight-list li{font-size:12px}
+ .highlight-list li:nth-child(n+3){display:none}
+ .tick{width:17px;height:17px}
+ .panel-right .cta{height:34px}
+ .flavour-track .related-product{flex-basis:46vw;margin-right:11px}
+ .flavour-track .related-image{width:180px;height:180px}
+ .cta-band{margin:0 4% 60px;border-radius:26px}
+ .cta-band h2{font-size:12vw}
+ .intro-skip{right:18px;bottom:60px}
+}
+@media(prefers-reduced-motion:reduce){.particle-float{animation:none}.ingredient-orbit{transform:none}}
